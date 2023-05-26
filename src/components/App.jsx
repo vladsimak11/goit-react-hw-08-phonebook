@@ -1,3 +1,9 @@
+import { useEffect, lazy } from "react";
+import { useDispatch } from "react-redux";
+import { Route, Routes } from 'react-router-dom';
+
+import { Layout } from './Layout';
+
 import css from './App.module.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,44 +13,29 @@ import {ContactForm} from './ContactForm/ContactForm';
 import {Filter} from './Filter/Filter';
 import {ContactList} from './ContactList/ContactList';
 
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchContacts } from "../redux/operations";
 
-import { getError, getIsLoading } from "../redux/selectors";
+import { fetchContacts } from "../redux/contacts/operations";
+
+import { getError, getIsLoading } from "../redux/contacts/selectors";
+
+const HomePage = lazy(() => import('../pages/Home'));
+const RegisterPage = lazy(() => import('../pages/Register'));
+const LoginPage = lazy(() => import('../pages/Login'));
+const ContactsPage = lazy(() => import('../pages/Contacts'));
 
 export const App = () => {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);  
-  const error = useSelector(getError);  
-  
-  useEffect(() => { 
-    dispatch(fetchContacts()); 
-  }, [dispatch]);
-
   return (
-    <div
-      style={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      color: '#010101',
-      paddingTop: 20
-      }}
-    >
-
-      <div className={css.mainBlock}>
-        <h1>Phonebook</h1>
-        <ContactForm />
-
-        <h2>Contacts</h2>
-        <Filter/>
-        {isLoading && !error && <ThreeDots />}
-        <ContactList />
-      </div>
-
-      <ToastContainer />
+    <div>
+    <Routes>
+      <Route path='/' element={<Layout/>}>
+        <Route index element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+      </Route>
+    </Routes>
+    
+    <ToastContainer />
     </div>
   )
   

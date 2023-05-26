@@ -1,0 +1,19 @@
+.authNav {
+  display: flex;
+  gap: 30px;
+  font-size: 25px;
+}
+
+.linkAuthNav {
+  color: white;
+  text-decoration: none;
+}
+
+.linkAuthNav:hover {
+  color: #2EE59D;
+  text-decoration: underline;
+}
+
+.linkAuthNav.active {
+  color: #2EE59D;
+}

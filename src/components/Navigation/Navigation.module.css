@@ -1,0 +1,20 @@
+.navigation {
+  display: flex;
+  gap: 30px;
+  font-size: 25px;
+  color: white;
+}
+
+.linkNavigation {
+  color: white;
+  text-decoration: none;
+}
+
+.linkNavigation:hover {
+  color: #2EE59D;
+  text-decoration: underline;
+}
+
+.linkNavigation.active {
+  color: #2EE59D;
+}
