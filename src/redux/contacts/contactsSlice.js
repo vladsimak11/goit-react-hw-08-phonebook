@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"; 
 import { toast } from 'react-toastify';
 
+import { logOut } from '../../redux/auth/operations';
 import { fetchContacts, addContact, deleteContact } from "./operations";
 
 const handlePending = state => {  
@@ -57,7 +58,7 @@ const contactsSlice = createSlice({
     [deleteContact.fulfilled](state, action) {      
       state.isLoading = false;      
       state.error = null;      
-      const index = state.items.findIndex(task => task.id === action.payload.id);      
+      const index = state.items.findIndex(contact => contact.id === action.payload.id);      
       state.items.splice(index, 1); 
       
       toast.error('Delete contact', {
@@ -70,74 +71,15 @@ const contactsSlice = createSlice({
         progress: undefined,
         theme: "light",
       });
-    },     
+    },
+    [logOut.fulfilled](state) {
+      state.items = [];
+      state.error = null;
+      state.isLoading = false;
+    },   
   }
 
 });
-  // extraReducers: {
-  //   [fetchContacts.pending](state) {
-  //     state.isLoading = true;
-  //   },
-  //   [fetchContacts.fulfilled](state, action) {
-  //     state.isLoading = false;
-  //     state.error = null;
-  //     state.items = action.payload;
-  //   },
-  //   [fetchContacts.rejected](state, action) {
-  //     state.isLoading = false;
-  //     state.error = action.payload;
-  //   },
-  //   [addContact.pending](state) {      
-  //     state.isLoading = true;   
-  //   },    
-  //   [addContact.fulfilled](state, action) {
-  //     state.isLoading = false;      
-  //     state.error = null;      
-  //     state.items.unshift(action.payload);
-      
-  //     toast.success('Add contact', {
-  //       position: "top-center",
-  //       autoClose: 1000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       theme: "light",
-  //     });
-
-  //   },    
-  //   [addContact.rejected](state, action) {      
-  //     state.isLoading = false;      
-  //     state.error = action.payload;   
-  //   },
-
-  //   [deleteContact.pending](state) {      
-  //     state.isLoading = true;    
-  //   },    
-  //   [deleteContact.fulfilled](state, action) {      
-  //     state.isLoading = false;      
-  //     state.error = null;      
-  //     const index = state.items.findIndex(task => task.id === action.payload.id);      
-  //     state.items.splice(index, 1); 
-      
-  //     toast.error('Delete contact', {
-  //       position: "top-center",
-  //       autoClose: 1000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       theme: "light",
-  //     });
-  //   },    
-  //   [deleteContact.rejected](state, action) {      
-  //     state.isLoading = false;      
-  //     state.error = action.payload;    
-  //   },
-  // },
-// });
 
 export const contactsReducer = contactsSlice.reducer;
 

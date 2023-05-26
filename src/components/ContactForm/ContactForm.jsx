@@ -19,7 +19,7 @@ export const ContactForm = () => {
 
     const contactsValue = {
       name: form.elements.name.value,
-      phone: form.elements.phone.value,
+      number: form.elements.number.value,
     }
 
     const check = contactsNameCheck(contactsValue.name);
@@ -64,7 +64,7 @@ export const ContactForm = () => {
         className={css.input}
         type="text"
         placeholder="Enter your number"
-        name="phone"
+        name="number"
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required

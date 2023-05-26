@@ -18,10 +18,10 @@ export const ContactList = () => {
   
   return (
     <ul className={css.list}>
-        {visibleContact.map(({id, name, phone}) => {
+        {visibleContact.map(({id, name, number}) => {
           return (
             <li className={css.item} key={id}>
-              <span className={css.span}>{name}: {phone}</span>
+              <span className={css.span}>{name}: {number}</span>
               <button
                 onClick={() => dispatch(deleteContact(id))}
                 className={css.delete}
